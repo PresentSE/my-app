@@ -17,13 +17,39 @@ const CountersList = () => {
   };
   const handleReset = () => {
     setCounters(initialState);
-    console.log("");
+    console.log("Handle reset");
+  };
+
+  const handleIncrement = (id) => {
+    const newCounters = counters.map((item) => {
+      if (item.id === id) {
+        item.value += 1;
+      }
+      return item;
+    });
+    setCounters(newCounters);
+  };
+
+  const handleDecrement = (id) => {
+    const newCounters = counters.map((item) => {
+      if (item.id === id) {
+        item.value -= 1;
+      }
+      return item;
+    });
+    setCounters(newCounters);
   };
 
   return (
     <>
       {counters.map((count) => (
-        <Counter key={count.id} onDelete={handleDelete} {...count}></Counter>
+        <Counter
+          key={count.id}
+          onDelete={handleDelete}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+          {...count}
+        ></Counter>
       ))}
       <button className="btn btn-primary btn-sm m-2" onClick={handleReset}>
         Сброс
